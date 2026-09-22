@@ -40,9 +40,6 @@ class HudTextParser(
             loc.opacity,
             text.property
         )
-        val scaledMap = text.source.charWidth.intEntries.associate { (k, v) ->
-            k to v * text.scale
-        }
         val scaledImageMap = text.imageCharMap.intEntries.associate { (k, v) ->
             k to v * text.scale * text.emoji.scale
         }
@@ -114,11 +111,9 @@ class HudTextParser(
             text,
             HudTextData(
                 keys,
-                (scaledMap.entries.associate { (k, v) ->
+                text.source.glyphWidths.widths(text.scale, scaledImageMap.entries.associate { (k, v) ->
                     k to v.normalizedWidth
-                } + scaledImageMap.entries.associate { (k, v) ->
-                    k to v.normalizedWidth
-                }).toIntMap(),
+                }),
                 scaledImageMap.map {
                     it.value.name to it.key
                 }.toMap(),

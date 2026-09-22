@@ -27,6 +27,8 @@ jobs:
     - name: Build all file
       run: ./gradlew build --stacktrace
     - name: Publish to Modrinth
+      if: github.repository == 'toxicity188/BetterHud'
       run: ./gradlew modrinthPublish --stacktrace
     - name: Publish to Hangar
+      if: github.repository == 'toxicity188/BetterHud'
       run: ./gradlew publishPluginPublicationToHangar --stacktrace
